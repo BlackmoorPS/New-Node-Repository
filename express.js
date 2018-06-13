@@ -3,14 +3,15 @@ const hbs = require('hbs');
 const port= process.env.PORT || 3000;
 var app =express();
 hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerHelper('currentYear', ()=>{
+  return new Date().getFullYear()
+})
 app.set('view engine', 'hbs');
-app.use(express.static(__dirname + '/templates'));
+app.get('/help', (req,res)=>{
+  res.render('help.hbs');
+})
 app.get('/', (req,res)=>{
-  res.send({
-    Name: 'Kratos',
-    Job: 'God of war',
-    occupation: 'raising his kid :P'
-  });
+  res.render('home.hbs');
 });
 app.get('/about', (req,res)=>{
   res.render('about.hbs',{
